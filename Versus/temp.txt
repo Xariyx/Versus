@@ -1,0 +1,37 @@
+	$("#blueClick").click(function(){
+				
+				
+				$.ajax({
+					url: "checkIfEnd.php",
+				}).done(function(end){
+					if(winner = 1){
+					  $.ajax({url: "reset.php"});
+					}else{
+						
+					$.ajax({
+						url: "getBlueValue.php",
+					}).done(function( msg ) {
+						var clicks = <?php echo file_get_contents("clicksToEnd.txt") ?>;
+						var string = "calc(" + msg + " / " + clicks + " * 100%)";
+						$("#blue").css({"height" : string});
+					});
+			  
+			  
+					$.ajax({
+						url: "getRedValue.php",
+					}).done(function( msg ) {
+						var clicks = <?php echo file_get_contents("clicksToEnd.txt") ?>;
+						var string = "calc(" + msg + " / " + clicks + " * 100%)";
+					$("#red").css({"height" : string});
+					});
+			  
+			  
+					$.ajax({
+						url: "incrementBlue.php",
+					});
+			      
+				  }
+				  
+			});
+			
+		});
